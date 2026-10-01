@@ -1,0 +1,25 @@
+# Template file for localsend-cli
+pkgname=localsend-cli
+version=0.1
+revision=3
+short_desc="A headless LocalSend v2.1 client for the terminal"
+archs="x86_64"
+license="MIT"
+homepage="https://codeberg.org/deppes/localsend-cli"
+makedepends=""
+hostmakedepends="go git"
+nodebug=yes
+nostrip=yes
+
+do_fetch() {
+	git clone --depth=1 "https://codeberg.org/deppes/localsend-cli" "$wrksrc"
+}
+
+do_build() {
+	go build -o localsend-cli .
+}
+
+
+do_install() {
+	install -D localsend-cli "$PKGDESTDIR/usr/bin/localsend"
+}
