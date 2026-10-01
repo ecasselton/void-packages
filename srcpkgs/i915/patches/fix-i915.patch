@@ -1,0 +1,10 @@
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -3010,6 +3010,7 @@
+ 	if (crtc_state->output_format != INTEL_OUTPUT_FORMAT_RGB)
+ 		return false;
+ 
++	return intel_conn_state->broadcast_rgb == INTEL_BROADCAST_RGB_FULL;
+ 	if (intel_conn_state->broadcast_rgb == INTEL_BROADCAST_RGB_AUTO) {
+ 		/*
+ 		 * See:

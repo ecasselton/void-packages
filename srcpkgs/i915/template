@@ -1,0 +1,43 @@
+# Template file for i915 patch
+pkgname=i915
+version=6.18.54
+revision=1
+short_desc="Patched i915 module"
+makedepends=""
+
+license="GPL-2.0-only"
+homepage="https://www.kernel.org"
+archs="x86_64"
+nodebug=yes
+nostrip=yes
+noverifyrdeps=yes
+noshlibprovides=yes
+preserve=yes
+
+hostmakedepends="curl tar xz bc elfutils-devel flex gmp-devel kmod libmpc-devel
+ pkg-config openssl-devel perl uboot-mkimage cpio pahole python3 zstd linux-headers"
+
+do_fetch() {
+	curl "https://cdn.kernel.org/pub/linux/kernel/v${version%%.*}.x/linux-$version.tar.xz" | unxz -c | tar -xf -
+	mv "linux-$version" "i915-$version"
+}
+
+do_build() {
+	make mrproper
+
+	# Get correct Module.symvers and .config
+	cp "/usr/src/kernel-headers-${version}_$revision/Module.symvers" .
+	cp "/usr/src/kernel-headers-${version}_$revision/.config" .
+
+	# Build
+	make -j$makejobs modules_prepare
+	make -j$makejobs M=drivers/gpu/drm/i915
+}
+
+
+do_install() {
+	zstd drivers/gpu/drm/i915/i915.ko
+	i915_dir="$PKGDESTDIR/usr/lib/modules/${version}_${revision}/updates"
+	mkdir -p $i915_dir
+	install -Dm644 drivers/gpu/drm/i915/i915.ko.zst "$i915_dir/i915.ko.zst"
+}
