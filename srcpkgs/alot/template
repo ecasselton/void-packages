@@ -1,7 +1,7 @@
 # Template file for 'alot'
 pkgname=alot
-version=0.11
-revision=2
+version=0.12
+revision=1
 build_style=python3-pep517
 hostmakedepends="python3-setuptools_scm python3-Sphinx
  python3-notmuch2 python3-cffi python3-importlib_metadata"
@@ -12,8 +12,8 @@ short_desc="Terminal-based mail user agent based on the notmuch mail indexer"
 maintainer="Felix Van der Jeugt <felix.vanderjeugt@posteo.net>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/pazz/alot"
-distfiles="https://github.com/pazz/${pkgname}/archive/${version}.tar.gz"
-checksum=4b82a38af65bea84719c40a01f4c1edc759263f7a752e1f1b3457e72ef7b0a2d
+distfiles="https://github.com/pazz/${pkgname}/archive/refs/tags/v${version}.tar.gz"
+checksum=4227913ee8acef847ac9a9c14312c878310ab6574ccd0bef178a209c606036ec
 export SETUPTOOLS_SCM_PRETEND_VERSION_FOR_alot=$version
 
 post_patch() {
