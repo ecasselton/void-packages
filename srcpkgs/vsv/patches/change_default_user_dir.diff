@@ -1,0 +1,83 @@
+--- a/README.md	2026-10-01 12:40:38.202107294 +0100
++++ b/README.md	2026-10-01 12:41:06.265143659 +0100
+@@ -126,7 +126,7 @@
+         -h, --help                   Print help information
+         -l, --log                    Show log processes, this is a shortcut for `status -l`
+         -t, --tree                   Tree view, this is a shortcut for `status -t`
+-        -u, --user                   User mode, this is a shortcut for `-d ~/runit/service`
++        -u, --user                   User mode, this is a shortcut for `-d ~/.config/service`
+         -v, --verbose                Increase Verbosity
+         -V, --version                Print version information
+ 
+--- a/man/vsv.8	2026-10-01 12:40:38.156979750 +0100
++++ b/man/vsv.8	2026-10-01 12:41:06.211252172 +0100
+@@ -30,7 +30,7 @@
+ Tree view, this is a shortcut for \fB\fCvsv status \-t\fR\&.
+ .TP
+ \fB\fC\-u\fR
+-User mode, this is a shortcut for \fB\fCvsv \-d ~/runit/service\fR\&.
++User mode, this is a shortcut for \fB\fCvsv \-d ~/.config/service\fR\&.
+ .TP
+ \fB\fC\-v\fR
+ Increase verbosity.
+@@ -132,11 +132,11 @@
+ .PP
+ \fB\fCvsv \-u\fR
+ .IP
+-Show service status in \fB\fC~/runit/service\fR
++Show service status in \fB\fC~/.config/service\fR
+ .PP
+ \fB\fCvsv \-u restart ssh\-agent\fR
+ .IP
+-Restart ssh\-agent in \fB\fC~/runit/service/ssh\-agent\fR
++Restart ssh\-agent in \fB\fC~/.config/service/ssh\-agent\fR
+ .SH BUGS
+ .PP
+ \[la]https://github.com/bahamas10/rust-vsv\[ra]
+--- a/man/vsv.md	2026-10-01 12:40:38.159582880 +0100
++++ b/man/vsv.md	2026-10-01 12:41:06.213089160 +0100
+@@ -39,7 +39,7 @@
+   Tree view, this is a shortcut for `vsv status -t`.
+ 
+ `-u`
+-  User mode, this is a shortcut for `vsv -d ~/runit/service`.
++  User mode, this is a shortcut for `vsv -d ~/.config/service`.
+ 
+ `-v`
+   Increase verbosity.
+@@ -147,11 +147,11 @@
+ 
+ `vsv -u`
+ 
+-  Show service status in `~/runit/service`
++  Show service status in `~/.config/service`
+ 
+ `vsv -u restart ssh-agent`
+ 
+-  Restart ssh-agent in `~/runit/service/ssh-agent`
++  Restart ssh-agent in `~/.config/service/ssh-agent`
+ 
+ BUGS
+ ----
+--- a/src/arguments.rs	2026-10-01 12:40:38.169443950 +0100
++++ b/src/arguments.rs	2026-10-01 12:41:06.224059811 +0100
+@@ -48,7 +48,7 @@
+     #[clap(short, long)]
+     pub tree: bool,
+ 
+-    /// User mode, this is a shortcut for `-d ~/runit/service`.
++    /// User mode, this is a shortcut for `-d ~/.config/service`.
+     #[clap(short, long)]
+     pub user: bool,
+ 
+--- a/src/config.rs	2026-10-01 12:40:38.171455772 +0100
++++ b/src/config.rs	2026-10-01 12:41:06.225979579 +0100
+@@ -28,7 +28,7 @@
+ pub const DEFAULT_PROC_DIR: &str = "/proc";
+ pub const DEFAULT_SV_PROG: &str = "sv";
+ pub const DEFAULT_PSTREE_PROG: &str = "pstree";
+-pub const DEFAULT_USER_DIR: &str = "runit/service";
++pub const DEFAULT_USER_DIR: &str = ".config/service";
+ 
+ // env var name
+ pub const ENV_NO_COLOR: &str = "NO_COLOR";
